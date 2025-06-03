@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socio.Me - We Manage You Grow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00c2c7;
+            --accent-color: #6f35ff;
+            --dark-color: #121212;
+            /* Darker than before */
+            --text-color: #e0e0e0;
+            /* Light text for dark bg */
+            --bg-light: #181818;
+            /* Dark background */
+            --bg-grey: #2c2c2c;
+            /* Dark grey background */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-color);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            flex-wrap: wrap;
+        }
+
+        header img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        #menu-icon {
+            position: relative;
+        }
+
+        nav {
+            display: none;
+            flex-direction: column;
+            background: var(--dark-color);
+            padding: 1rem;
+            position: absolute;
+            top: 70px;
+            right: 2rem;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        nav a {
+            color: var(--text-color);
+            padding: 0.5rem 0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+            color: var(--text-color);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease;
+        }
+
+        .hero a {
+            background: var(--dark-color);
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease, color 0.3s ease;
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        .hero a:hover {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            box-shadow: 0 0 12px var(--accent-color);
+        }
+
+        .section {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: auto;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        #about {
+            background-color: var(--bg-light);
+        }
+
+        #services {
+            background-color: var(--bg-grey);
+        }
+
+        .services {
+            display: flex;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .services-scroll {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 10px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            /* smoother on iOS */
+        }
+
+        .service-card {
+            background: #222222;
+            width: 280px;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            color: var(--text-color);
+            scroll-snap-align: start;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(30, 144, 255, 0.7);
+        }
+
+        .service-card img {
+            width: 100%;
+            margin-bottom: 1rem;
+            filter: brightness(1.2);
+            transition: transform 0.3s ease;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            color: #aabbee;
+        }
+
+        .services-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .services-scroll::-webkit-scrollbar-thumb {
+            background-color: #999;
+            border-radius: 4px;
+        }
+
+        .reviews {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .review-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(to bottom right, #1c2b54, #122046);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+            color: #ddd;
+            position: relative;
+            max-width: 350px;
+            flex: 1 1 300px;
+        }
+
+        .card::before {
+            content: "\201C";
+            font-size: 3rem;
+            color: var(--accent-color);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .connect-section {
+            background: linear-gradient(to right, #121212, #1e1e1e);
+            color: var(--text-color);
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            background-color: #25D366;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1ebe5d;
+        }
+
+        .privacy-section {
+            background-color: #15233b;
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-color);
+        }
+
+        .learn-more-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .learn-more-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .policy-card {
+            max-width: 700px;
+            margin: 2rem auto 0;
+            padding: 1.5rem;
+            text-align: justify;
+            line-height: 2.5rem;
+            background-color: #2c2c2c;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.5s ease;
+            color: var(--text-color);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 2rem;
+        }
+
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile and Responsive Fixes */
+        @media (max-width: 768px) {
+            nav {
+                position: static;
+                width: 100%;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero a {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .services {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .card {
+                font-size: 0.95rem;
+                padding: 1.5rem;
+                max-width: 100%;
+            }
+
+            .about-content {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .connect-section,
+            .privacy-section {
+                padding: 2rem 1rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
+            }
+
+            .social-links a {
+                font-size: 1.3rem;
+                margin: 0 8px;
+            }
+        }
+
+        /*header*/
+        #menu-icon {
+            cursor: pointer;
+        }
+
+        #menu.menu-visible {
+            display: flex !important;
+        }
+
+        /* Show menu icon only on smaller screens */
+        @media (max-width: 768px) {
+            nav {
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 100%;
+                background-color: var(--dark-color);
+                flex-direction: column;
+                display: none;
+            }
+
+            #menu-icon img {
+                display: block;
+            }
+
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav a {
+                padding: 1rem;
+                border-top: 1px solid #333;
+            }
+        }
+
+        /* Hide nav by default on mobile */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="logo2.png" alt="Socio.Me Logo Left">
+        <div id="menu-icon">
+            <img src="logo1.png" alt="Menu Icon" id="menu-toggle">
+
+            <nav id="menu">
+                <a href="#hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#connect">Connect Now</a>
+                <a href="#privacy">Privacy Policy</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <h1>We Manage You Grow</h1>
+        <p>Boost your brand's online presence with <b>Socio.me</b>'s expert
+            social media services.
+        </p>
+        <a href="#services">Explore Now</a>
+    </section>
+
+    <section class="section" id="about">
+        <h2>About Us</h2>
+        <div class="about-content">
+            <p>At <strong>Socio.Me</strong>, we’re more than a digital marketing agency – we're your growth partner. Our
+                team brings innovation, creativity, and data-driven strategies together to help your brand thrive in the
+                digital space. Whether you're just starting out or scaling to the next level, we tailor solutions that
+                fit your unique goals.</p>
+            <p>We specialize in managing and enhancing your online identity through strategic campaigns, engaging
+                content, and cutting-edge analytics. From social media to SEO, we manage every detail so you can focus
+                on what matters most – growing your business.</p>
+            <p>Let us take the reins of your digital presence and turn browsers into loyal customers. With Socio.Me,
+                you're not just online — you're unforgettable.</p>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <h2>Our Services</h2>
+        <div class="services-scroll">
+            <div class="service-card">
+                <img src="s1.jpg" alt="Social Media">
+                <h3>Social Media Management</h3>
+                <p>Engage your audience and grow your brand with curated content and consistent posting strategies.</p>
+            </div>
+            <div class="service-card">
+                <img src="s2.webp" alt="SEO">
+                <h3>SEO Optimization</h3>
+                <p>Boost your visibility in search results and drive organic traffic with our expert SEO services.</p>
+            </div>
+            <div class="service-card">
+                <img src="s3.jpg" alt="Paid Ads">
+                <h3>Paid Ad Campaigns</h3>
+                <p>Maximize ROI with targeted ad strategies across Google, Facebook, and Instagram.</p>
+            </div>
+            <div class="service-card">
+                <img src="s4.png" alt="Content Creation">
+                <h3>Content Creation</h3>
+                <p>From copywriting to graphics and video, we create content that captivates and converts.</p>
+            </div>
+            <div class="service-card">
+                <img src="s5.png" alt="Website Creation">
+                <h3>Website Creation</h3>
+                <p>Professional, responsive, and custom-designed websites that reflect your brand and drive results.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section" id="reviews" style="padding-top: 5rem; padding-bottom: 5rem;">
+        <h2>What Clients Say</h2>
+        <div class="reviews">
+            <div class="review-row">
+                <div class="card">
+                    <p> Socio.Me transformed our tattoo studio’s online presence into a true work of art. From bold
+                        visuals
+                        to engaging content, every detail reflects the creativity and precision we stand for. Our
+                        bookings
+                        soared, and our brand now speaks louder than ink alone.</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: #aabbee;">– AestheticTouch Tattoo</p>
+                </div>
+                <div class="card">
+                    <p>Socio.Me gave our dental practice the online polish it needed. Their creative strategy boosted
+                        our appointment bookings, and the sleek, informative content helped build trust with new
+                        patients. Professional, prompt, and truly results-driven!</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: #aabbee;">– Aurasmile Dental Clinic</p>
+                </div>
+                <div class="card">
+                    <p>Socio.Me transformed our online visibility. Their tailored approach to branding and digital
+                        outreach brought a noticeable increase in patient inquiries. The team is responsive, creative,
+                        and truly understands healthcare marketing.</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: #aabbee;">– Dr. Mundhe Dental Clinic,</p>
+                </div>
+            </div>
+            <div class="review-row">
+                <div class="card">
+                    <p>Partnering with Socio.Me has been a game-changer for our school's digital presence. Their
+                        innovative strategies helped us connect better with parents and the community. Professional,
+                        insightful, and results-driven—highly recommended!</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: #aabbee;">– Mount Carmel School</p>
+                </div>
+                <div class="card">
+                    <p> Socio.Me brought clarity to our complex educational content through sharp visuals and smart
+                        campaigns. Their team understood our niche and translated it into a compelling digital presence.
+                        A perfect blend of creativity and strategy!</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: #aabbee;">– Media Learn Complexity</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section connect-section" id="connect">
+        <h2>Ready to start?</h2>
+        <p>Let’s take your brand to the next level. Connect with us now.</p>
+        <a href="https://wa.me/1234567890" class="whatsapp-btn" target="_blank">Chat on WhatsApp</a>
+    </section>
+
+
+    <section class="section privacy-section" id="privacy">
+        <h2>Privacy Policy</h2>
+        <p>Your privacy matters to us. <button class="learn-more-btn" onclick="togglePolicyCard()">Learn More</button>
+        </p>
+        <div id="policy-card" class="policy-card hidden">
+            <p><b>Privacy Policy </b><br>
+                <b>Effective Date:</b> 03/06/2025 <br>
+
+                At Socio.me, your privacy matters. We collect basic information like your name, email, and how you use
+                our website to improve our services and communicate with you. <br>
+
+                <b> What We Collect: </b> <br>
+                Contact details (name, email, phone) <br>
+
+                Website usage data (pages visited, IP address, etc.)<br>
+
+                <b>How We Use It:</b><br>
+                To provide digital marketing services<br>
+
+                To respond to inquiries<br>
+
+                To improve our website and marketing<br>
+
+                We <b>do not sell</b>your personal information. We may share it with trusted partners who help us
+                operate our site or deliver services.<br>
+
+                <b>Your Choices:</b><br>
+                You can opt out of marketing emails anytime<br>
+
+                You can request to view, update, or delete your data by contacting us<br>
+
+                For questions, contact us at [insert email].
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Socio.Me | All rights reserved.</p>
+
+    </footer>
+
+    <script>
+        const logo2 = document.getElementById('logo2');
+        const menu = document.getElementById('menu');
+
+        logo2.addEventListener('click', () => {
+            menu.classList.toggle('menu-visible');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && e.target !== logo2) {
+                menu.classList.remove('menu-visible');
+            }
+        });
+
+
+        function togglePolicyCard() {
+            const card = document.getElementById('policy-card');
+            card.classList.toggle('hidden');
+        }
+
+    </script>
+</body>
+
+</html>
